@@ -124,6 +124,7 @@ private:
     NOT_CREATED,
     INITIALIZING,
     CREATED,
+    // RESETTING,
     CLEANING_UP
   };
   std::atomic<Sandbox_Status> sandbox_created = Sandbox_Status::NOT_CREATED;
@@ -341,6 +342,7 @@ private:
   static auto impl_create_sandbox_helper(rlbox_sandbox<T_Sbx>* this_ptr,
                                          T_Args... args)
   {
+    printf("im in helper rn\n");
     return this_ptr->impl_create_sandbox(std::forward<T_Args>(args)...);
   }
 
@@ -413,6 +415,13 @@ public:
     }
 
     return created;
+  }
+
+  template<typename... T_Args>
+  inline void reset_sandbox()
+  {
+    // TODO: add synchronization here just in case
+    return this->impl_reset_sandbox();
   }
 
   /**

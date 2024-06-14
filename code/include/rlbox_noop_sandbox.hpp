@@ -90,6 +90,8 @@ protected:
 
   inline void impl_destroy_sandbox() {}
 
+  inline void impl_reset_sandbox() {}
+
   template<typename T>
   inline void* impl_get_unsandboxed_pointer(T_PointerType p) const
   {
