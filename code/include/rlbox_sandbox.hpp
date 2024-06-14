@@ -124,7 +124,7 @@ private:
     NOT_CREATED,
     INITIALIZING,
     CREATED,
-    RESETTING,
+    // RESETTING,
     CLEANING_UP
   };
   std::atomic<Sandbox_Status> sandbox_created = Sandbox_Status::NOT_CREATED;
@@ -384,7 +384,6 @@ public:
       RLBOX_UNUSED(val);
     }
 #endif
-    // printf("creaitng sandbox in outer yayy\n");
     auto expected = Sandbox_Status::NOT_CREATED;
     bool success = sandbox_created.compare_exchange_strong(
       expected, Sandbox_Status::INITIALIZING /* desired */);
@@ -421,8 +420,7 @@ public:
   template<typename... T_Args>
   inline void reset_sandbox()
   {
-    // printf("general sandbox: calling impl_reset_sandbox\n");
-
+    // TODO: add synchronization here just in case
     return this->impl_reset_sandbox();
   }
 
